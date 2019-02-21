@@ -25,13 +25,13 @@ function Install-WSLDistribution {
     $ErrorNotElevated = 'The requested operation requires elevation'
 
     $DistroHash = [ORDERED]@{
-        'Ubuntu-1804'       = 'https://aka.ms/wsl-ubuntu-1804';
-        'Ubuntu-1804-Arm'   = 'https://aka.ms/wsl-ubuntu-1804-arm';
-        'Ubuntu-1604'       = 'https://aka.ms/wsl-ubuntu-1604';
-        'Debian'            = 'https://aka.ms/wsl-debian-gnulinux';
-        'Kali' 				      = 'https://aka.ms/wsl-kali-linux';
-        'OpenSUSE' 			    = 'https://aka.ms/wsl-opensuse-42';
-        'SLES' 				      = 'https://aka.ms/wsl-sles-12';
+        'Ubuntu-1804'		= 'https://aka.ms/wsl-ubuntu-1804';
+        'Ubuntu-1804-Arm'	= 'https://aka.ms/wsl-ubuntu-1804-arm';
+        'Ubuntu-1604'		= 'https://aka.ms/wsl-ubuntu-1604';
+        'Debian'		= 'https://aka.ms/wsl-debian-gnulinux';
+        'Kali'			= 'https://aka.ms/wsl-kali-linux';
+        'OpenSUSE'		= 'https://aka.ms/wsl-opensuse-42';
+        'SLES'			= 'https://aka.ms/wsl-sles-12';
     }
     
     # Test For Elevated Permissions & Valid Feature Object (via 'Online' query parameter)
@@ -69,7 +69,6 @@ function Install-WSLDistribution {
         }
     }
 
-
     Try {
         $InstallPath = Get-Item -Path $Path -ErrorAction Stop
     }
@@ -104,13 +103,10 @@ function Install-WSLDistribution {
 
         $FileExists = Test-Path -Path $AppXFullName -PathType Leaf
         
-
         If ($FileExists -AND ($ForceDownload -ne $true)) {
             Write-Host "AppX file already exists: " -NoNewline
             Write-Host $AppXFullName -ForegroundColor Yellow
             
-            #$Response = Read-Host "Force replace existing file?"
-            #If ($Response.ToCharArray()[0] -like 'Y') { $ReplaceAppXFile = $true }
             If ($(Read-Host "Force replace existing file? [Y/N]").ToCharArray()[0] -like 'Y') { $ReplaceAppXFile = $true }
             Else {
                 Write-Verbose "User elected not to replace exiting file: '$AppXFullName'"
@@ -163,9 +159,6 @@ function Install-WSLDistribution {
             Catch {
                 Write-Warning "Failed extracting ZIP file '$ZipFullName' - exception: $($_.Exception.Message)"
             }
-
-
         }
-        
     }
 }
